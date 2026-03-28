@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # RegComplianceEnv
 
 **RegComplianceEnv** is a synthetic legal compliance training environment designed to evaluate and train AI agents on Indian startup law. It provides a robust, reproducible arena where agents must identify compliance violations across various legal documents, such as Privacy Policies, MOAs, and Employment Agreements. This environment exists to bridge the gap between AI development and complex regulatory requirements, offering a standardized benchmark for legal AI systems.
@@ -96,3 +97,17 @@ curl http://localhost:7860/health
 5. **Copyright Act 1957**: Law protecting intellectual property rights of creators of original literary and artistic works.
 6. **IT Act 2000**: Main law in India dealing with cybercrime and electronic commerce, providing legal recognition for electronic records.
 7. **Shops and Establishments Act**: State-level legislation regulating conditions of work and employment in commercial establishments.
+=======
+---
+title: Regcompliance Env
+emoji: 📊
+colorFrom: yellow
+colorTo: pink
+sdk: docker
+pinned: false
+license: mit
+short_description: 'OpenEnv environment for AI agent training on Indian startup '
+---
+
+Check out the configuration reference at https://huggingface.co/docs/hub/spaces-config-reference
+>>>>>>> 7439365c298288bb10789bf4a7726df0e203f01f
