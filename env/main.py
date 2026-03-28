@@ -132,9 +132,39 @@ class HealthResponse(BaseModel):
     environment: str
 
 
+class RootResponse(BaseModel):
+    name: str
+    version: str
+    description: str
+    status: str
+    endpoints: List[str]
+    tasks: List[Dict[str, str]]
+    space_url: str
+    docs_url: str
+
+
 # ---------------------------------------------------------------------------
 # Endpoints
 # ---------------------------------------------------------------------------
+
+@app.get("/", response_model=RootResponse, tags=["meta"])
+def root() -> RootResponse:
+    """Return environment metadata."""
+    return RootResponse(
+        name="RegComplianceEnv",
+        version="1.0.0",
+        description="OpenEnv environment for training AI agents on Indian startup legal compliance",
+        status="running",
+        endpoints=["/health", "/reset", "/step", "/state", "/docs"],
+        tasks=[
+            {"id": "task1", "name": "Privacy Policy Compliance", "difficulty": "easy"},
+            {"id": "task2", "name": "Contractual Jurisdiction Conflict", "difficulty": "medium"},
+            {"id": "task3", "name": "Comprehensive Startup Audit", "difficulty": "hard"},
+        ],
+        space_url="https://huggingface.co/spaces/sarthakdhatrak/regcompliance-env",
+        docs_url="https://sarthakdhatrak-regcompliance-env.hf.space/docs",
+    )
+
 
 @app.get("/health", response_model=HealthResponse, tags=["meta"])
 def health() -> HealthResponse:
