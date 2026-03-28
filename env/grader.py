@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 from dataclasses import dataclass, field
-from typing import Dict, List, Set
+from typing import Dict, List, Optional, Set, Tuple
 
 from env.models import Action, Reward
 
@@ -20,16 +20,138 @@ _CONFIDENCE_THRESHOLD: float = 0.8
 # Completion bonus when all issues are found with zero false positives.
 _COMPLETION_BONUS: float = 0.1
 
+# Credit multiplier for fuzzy (keyword / semantic) matches.
+_FUZZY_CREDIT_MULTIPLIER: float = 0.7
+
+# ---------------------------------------------------------------------------
+# Semantic keyword groups
+# Each entry maps a frozenset of trigger keywords to a list of canonical IDs
+# that keywords resolve to.
+# ---------------------------------------------------------------------------
+
+_SEMANTIC_MAP: List[Tuple[frozenset, List[str]]] = [
+    (
+        frozenset({"retention", "data_retention"}),
+        ["missing_data_retention_clause"],
+    ),
+    (
+        frozenset({"fema", "foreign_director", "rbi"}),
+        ["fema_foreign_director_violation"],
+    ),
+    (
+        frozenset({"arbitration", "dispute"}),
+        ["missing_arbitration_clause"],
+    ),
+    (
+        frozenset({"vesting", "equity"}),
+        ["missing_equity_vesting_schedule"],
+    ),
+    (
+        frozenset({"ip", "intellectual", "assignment"}),
+        ["missing_ip_assignment_clause"],
+    ),
+    (
+        frozenset({"jurisdiction", "conflict", "governing"}),
+        ["jurisdiction_conflict_vendor", "jurisdiction_conflict_terms", "jurisdiction_conflict"],
+    ),
+    (
+        frozenset({"noncompete", "non_compete", "restraint"}),
+        ["noncompete_exceeds_limit"],
+    ),
+    (
+        frozenset({"grievance", "officer"}),
+        ["missing_grievance_officer"],
+    ),
+    (
+        frozenset({"quorum", "board_meeting"}),
+        ["missing_board_quorum_definition"],
+    ),
+    (
+        frozenset({"notice_period", "notice"}),
+        ["notice_period_exceeds_limit"],
+    ),
+    (
+        frozenset({"board_resolution", "foreign_investment"}),
+        ["missing_board_resolution_foreign_investment"],
+    ),
+    (
+        frozenset({"data_processor", "dpa", "processor_agreement"}),
+        ["missing_data_processor_agreement_reference"],
+    ),
+]
+
 
 @dataclass
 class _GradeResult:
     """Intermediate accumulator used during grading."""
 
-    hits_full: int = 0          # correct issues with correct severity
-    hits_partial: int = 0       # correct issues with wrong severity
+    hits_full: int = 0          # correct issues with correct severity (exact match)
+    hits_partial: int = 0       # correct issues with wrong severity (exact match)
+    hits_fuzzy: int = 0         # correct issues matched via keyword/semantic
     false_positives: int = 0
     confidence_bonus: float = 0.0
     hit_issue_ids: Set[str] = field(default_factory=set)
+
+
+# ---------------------------------------------------------------------------
+# Match helpers
+# ---------------------------------------------------------------------------
+
+def _keyword_match(agent_id: str, gt_id: str) -> bool:
+    """Return True if all underscore-words from gt_id appear in agent_id."""
+    agent_norm = agent_id.lower()
+    words = gt_id.lower().split("_")
+    return all(w in agent_norm for w in words if w)
+
+
+def _semantic_match(agent_id: str, gt_id: str) -> bool:
+    """Return True if agent_id contains a keyword that maps to gt_id."""
+    agent_norm = agent_id.lower()
+    for keywords, target_ids in _SEMANTIC_MAP:
+        if gt_id not in target_ids:
+            continue
+        # Check if any keyword from this group appears in agent_id
+        for kw in keywords:
+            if kw.lower() in agent_norm:
+                return True
+    return False
+
+
+def _find_gt_match(
+    agent_id: str,
+    gt_by_id: Dict[str, dict],
+    already_hit: Set[str],
+) -> Tuple[Optional[str], str]:
+    """Find the best matching ground truth issue for agent_id.
+
+    Returns:
+        (matched_gt_id, match_type) where match_type is one of:
+        "exact", "keyword", "semantic", or "none".
+    """
+    agent_id_norm = agent_id.lower()
+
+    # 1. Exact match
+    for gt_id in gt_by_id:
+        if gt_id in already_hit:
+            continue
+        if agent_id_norm == gt_id.lower():
+            return gt_id, "exact"
+
+    # 2. Keyword match — iterate gt issues in order
+    for gt_id in gt_by_id:
+        if gt_id in already_hit:
+            continue
+        if _keyword_match(agent_id_norm, gt_id):
+            return gt_id, "keyword"
+
+    # 3. Semantic match
+    for gt_id in gt_by_id:
+        if gt_id in already_hit:
+            continue
+        if _semantic_match(agent_id_norm, gt_id):
+            return gt_id, "semantic"
+
+    return None, "none"
 
 
 class Grader:
@@ -40,12 +162,13 @@ class Grader:
 
         Scoring Rules
         -------------
-        - Full credit  (1.0 / total_issues) : issue_id matches AND severity matches.
-        - Partial credit (0.5 / total_issues): issue_id matches BUT severity is wrong.
-        - False positive (-0.05)            : issue_id does not match any ground truth.
-        - Confidence bonus (+0.02 per hit)  : correct issue with confidence >= 0.8.
-        - Confidence penalty (-0.03 extra)  : false positive with confidence >= 0.8.
-        - Completion bonus (+0.1)           : all issues found, zero false positives.
+        - Exact match + correct severity  → 1.0 / total_issues  (full credit)
+        - Exact match + wrong severity    → 0.5 / total_issues  (partial credit)
+        - Keyword/semantic match          → 0.7 / total_issues  (fuzzy credit)
+        - False positive (-0.05)         : issue_id does not match any ground truth.
+        - Confidence bonus (+0.02)       : correct issue with confidence >= 0.8.
+        - Confidence penalty (-0.03)     : false positive with confidence >= 0.8.
+        - Completion bonus (+0.1)        : all issues found, zero false positives.
         - Final score clamped to [0.0, 1.0].
 
         Args:
@@ -58,29 +181,40 @@ class Grader:
         gt_issues: List[dict] = ground_truth.get("issues", [])
         total_issues: int = ground_truth.get("total_issues", len(gt_issues))
 
-        # Build a lookup for O(1) matching.
+        # Build a lookup for matching.
         gt_by_id: Dict[str, dict] = {iss["issue_id"]: iss for iss in gt_issues}
 
         result = _GradeResult()
         base_score: float = 0.0
 
         for flag in action.issues:
-            if flag.issue_id in gt_by_id:
-                gt_issue = gt_by_id[flag.issue_id]
-                result.hit_issue_ids.add(flag.issue_id)
+            matched_gt_id, match_type = _find_gt_match(
+                flag.issue_id, gt_by_id, result.hit_issue_ids
+            )
+
+            if match_type == "exact":
+                gt_issue = gt_by_id[matched_gt_id]
+                result.hit_issue_ids.add(matched_gt_id)
 
                 if flag.severity == gt_issue["severity"]:
-                    # Full credit
                     credit = 1.0 / total_issues if total_issues > 0 else 0.0
                     result.hits_full += 1
                 else:
-                    # Partial credit - severity mismatch
                     credit = 0.5 / total_issues if total_issues > 0 else 0.0
                     result.hits_partial += 1
 
                 base_score += credit
 
-                # Confidence bonus for correct issues
+                if flag.confidence >= _CONFIDENCE_THRESHOLD:
+                    result.confidence_bonus += _CONFIDENCE_BONUS_PER_ISSUE
+
+            elif match_type in ("keyword", "semantic"):
+                result.hit_issue_ids.add(matched_gt_id)
+                result.hits_fuzzy += 1
+
+                credit = (_FUZZY_CREDIT_MULTIPLIER / total_issues) if total_issues > 0 else 0.0
+                base_score += credit
+
                 if flag.confidence >= _CONFIDENCE_THRESHOLD:
                     result.confidence_bonus += _CONFIDENCE_BONUS_PER_ISSUE
 
@@ -89,7 +223,6 @@ class Grader:
                 result.false_positives += 1
                 base_score -= _FP_PENALTY
 
-                # Extra penalty for overconfident false positives
                 if flag.confidence >= _CONFIDENCE_THRESHOLD:
                     base_score -= _CONFIDENCE_FP_EXTRA_PENALTY
 
@@ -99,10 +232,11 @@ class Grader:
         # Apply confidence bonus to overall score
         final_score = base_score + result.confidence_bonus
 
-        # Completion bonus: all issues found with FULL credit (correct severity) and zero false positives
+        # Completion bonus: all issues found with all FULL credit and zero false positives
         perfect = (
             result.hits_full == total_issues
             and result.hits_partial == 0
+            and result.hits_fuzzy == 0
             and result.false_positives == 0
         )
         if perfect:
@@ -147,7 +281,8 @@ class Grader:
 
         parts.append(
             f"Found {issues_found}/{total_issues} issues "
-            f"({result.hits_full} exact, {result.hits_partial} partial severity match). "
+            f"({result.hits_full} exact, {result.hits_partial} partial severity match, "
+            f"{result.hits_fuzzy} fuzzy match). "
             f"False positives: {result.false_positives}. "
             f"Issues missed: {issues_missed}."
         )
@@ -180,6 +315,12 @@ class Grader:
             parts.append(
                 "Some issues had correct issue_id but wrong severity — "
                 "partial credit (0.5x) was awarded."
+            )
+
+        if result.hits_fuzzy > 0:
+            parts.append(
+                f"Some issues were matched via keyword/semantic similarity — "
+                f"fuzzy credit ({_FUZZY_CREDIT_MULTIPLIER}x) was awarded."
             )
 
         return " ".join(parts)
