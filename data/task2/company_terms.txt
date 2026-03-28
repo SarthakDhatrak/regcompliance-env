@@ -1,0 +1,63 @@
+STANDARD TERMS OF SERVICE
+
+NovaTech Solutions Pvt Ltd
+Effective Date: 1 January 2024
+Version 2.1
+
+---
+
+1. ACCEPTANCE OF TERMS
+
+By accessing or using the services provided by NovaTech Solutions Pvt Ltd ("NovaTech", "we", "us", or "our"), you ("User") agree to be bound by these Standard Terms of Service ("Terms"). If you do not agree to these Terms, you must not use our services. These Terms apply to all individuals and entities that register for, access, or use our platform.
+
+2. SERVICES
+
+NovaTech provides a technology-enabled compliance and document management platform designed for Indian startups, small businesses, and legal professionals. The features and functionalities of the Services may change from time to time at NovaTech's sole discretion.
+
+3. USER ACCOUNTS
+
+Users must create an account to access the Services. You are responsible for maintaining the confidentiality of your account credentials and for all activities conducted under your account. You must notify NovaTech immediately if you suspect any unauthorised use of your account.
+
+4. ACCEPTABLE USE
+
+You agree not to use the Services for any unlawful purpose or in any manner that could damage, disable, overburden, or impair our platform. Prohibited activities include but are not limited to: uploading malicious code, harvesting user data, and attempting to gain unauthorised access to any system or network.
+
+5. INTELLECTUAL PROPERTY
+
+All content, software, and materials provided through the Services are the exclusive property of NovaTech Solutions Pvt Ltd and are protected by applicable intellectual property laws, including the Copyright Act, 1957. You are granted a limited, non-exclusive, non-transferable licence to use the Services for your internal business purposes only.
+
+6. FEES AND PAYMENT
+
+Subscription fees are billed in advance on a monthly or annual basis in Indian Rupees (INR). All fees are inclusive of applicable Goods and Services Tax (GST) at prevailing rates. Failure to pay fees when due may result in suspension or termination of your account.
+
+7. LIMITATION OF LIABILITY
+
+To the fullest extent permitted by applicable law, NovaTech's liability for any claim arising under these Terms shall not exceed the total fees paid by the User in the three months preceding the claim. NovaTech shall not be liable for indirect, incidental, or consequential damages of any nature.
+
+8. INDEMNIFICATION
+
+You agree to indemnify, defend, and hold harmless NovaTech, its directors, officers, employees, and agents from any claims, liabilities, damages, or expenses (including reasonable legal fees) arising from your use of the Services or breach of these Terms.
+
+9. MODIFICATIONS TO TERMS
+
+NovaTech reserves the right to modify these Terms at any time. Modified Terms will be posted on our website with an updated effective date. Continued use of the Services after modifications constitutes your acceptance of the revised Terms.
+
+10. TERMINATION
+
+NovaTech may suspend or terminate your access to the Services at any time, with or without cause, upon reasonable notice, except in cases of serious breach where immediate termination is warranted.
+
+11. PRIVACY
+
+Your use of the Services is also governed by our Privacy Policy, which is incorporated herein by reference. Please review our Privacy Policy at www.novatechsolutions.in/privacy.
+
+12. GOVERNING LAW AND JURISDICTION
+
+These Terms shall be governed by and construed in accordance with the laws of India, without regard to its conflict of law principles. Any dispute, claim, or controversy arising out of or in connection with these Terms or the Services, including any question regarding their existence, validity, or termination, shall be subject to the exclusive jurisdiction of the courts located in Bengaluru, Karnataka, India. Each Party irrevocably waives any right to object to the laying of venue of any such proceedings in Bengaluru.
+
+13. CONTACT
+
+For questions regarding these Terms, please contact: legal@novatechsolutions.in
+
+---
+
+NovaTech Solutions Pvt Ltd | CIN: U72900KA2020PTC123456 | GST: 29AABCN1234A1Z5

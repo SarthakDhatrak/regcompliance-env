@@ -1,0 +1,93 @@
+PRIVACY POLICY
+
+NovaTech Solutions Pvt Ltd
+Effective Date: 1 April 2024
+Version 2.0
+
+---
+
+1. INTRODUCTION
+
+NovaTech Solutions Pvt Ltd ("NovaTech", "we", "us", or "our"), incorporated under the Companies Act, 2013, with its registered office in Bengaluru, Karnataka, India, is committed to protecting the personal data of our users. This Privacy Policy applies to all users of our platform, website, and related services (collectively, "Services").
+
+By using our Services, you agree to the collection, use, and disclosure of your information as described in this Policy.
+
+---
+
+2. INFORMATION WE COLLECT
+
+We collect the following categories of personal data:
+
+(a) Identity Data: full name, date of birth, PAN, Aadhaar number (only where required for KYC compliance under RBI/SEBI regulations).
+(b) Contact Data: email address, phone number, postal address.
+(c) Financial Data: bank account details, UPI identifiers, transaction records (used solely for payment processing).
+(d) Technical Data: IP address, device identifiers, browser type, OS, session duration, and usage logs.
+(e) Document Data: contracts, corporate filings, or other documents uploaded for compliance analysis.
+
+---
+
+3. DATA HANDLING AND USE
+
+We process your personal data for the following purposes:
+
+- Providing and maintaining our compliance analysis Services
+- Processing payments and maintaining financial records under applicable tax and corporate laws
+- Conducting KYC verification as required by applicable Indian regulations
+- Communicating service updates, notices, and alerts
+- Detecting fraud and ensuring platform security
+- Meeting legal and regulatory obligations
+
+We rely on contractual necessity, legal obligation, and legitimate interests as the lawful bases for processing.
+
+---
+
+4. DATA SHARING
+
+We do not sell personal data. We share data with:
+
+(a) Cloud Infrastructure Providers: including DevBridge Technologies and CloudServe Ltd, under data processing agreements.
+(b) Legal Authorities: in response to lawful orders, subpoenas, or regulatory requirements under the Information Technology Act, 2000, the DPDP Act, 2023, and other applicable laws.
+(c) Successors: in the event of a corporate restructuring, merger, or acquisition, subject to equivalent data protection obligations.
+
+---
+
+5. YOUR RIGHTS
+
+Under the Digital Personal Data Protection Act, 2023, you have the right to:
+
+- Access personal data held about you
+- Correct inaccurate data
+- Erasure of personal data no longer required for its original purpose
+- Grievance redressal
+- Nominate a representative in case of death or incapacity
+
+---
+
+6. SECURITY MEASURES
+
+We apply industry-standard security measures including AES-256 encryption, role-based access controls, penetration testing, and continuous monitoring. Despite these measures, no system is entirely immune from security incidents.
+
+---
+
+7. CONTACT AND GRIEVANCES
+
+For general data privacy queries, please contact:
+
+Data Privacy Team
+NovaTech Solutions Pvt Ltd
+4th Floor, Prestige Tower, MG Road
+Bengaluru - 560001, Karnataka
+Email: privacy@novatechsolutions.in
+Phone: +91-80-4567-8901
+
+Note: A formally designated Grievance Officer with name and contact details, as required under the Information Technology (Intermediary Guidelines and Digital Media Ethics Code) Rules, 2021, and the DPDP Act, 2023, has not been explicitly appointed and is not identified in this Policy.
+
+---
+
+8. UPDATES TO THIS POLICY
+
+We may update this Privacy Policy periodically. Changes will be posted on our website and, where required by applicable law, communicated to affected users directly.
+
+---
+
+NovaTech Solutions Pvt Ltd | CIN: U72900KA2020PTC123456

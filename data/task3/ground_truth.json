@@ -1,0 +1,86 @@
+{
+  "task_id": "task3",
+  "total_issues": 10,
+  "issues": [
+    {
+      "issue_id": "missing_data_retention_clause",
+      "severity": "high",
+      "document": "privacy_policy.txt",
+      "clause_ref": "Section 3 - Data Handling and Use",
+      "rule": "DPDP Act 2023 Section 8(7)",
+      "description": "No data retention period or deletion timeline specified. Mandatory under DPDP Act 2023."
+    },
+    {
+      "issue_id": "fema_foreign_director_violation",
+      "severity": "high",
+      "document": "moa.txt",
+      "clause_ref": "Section VII - Directors",
+      "rule": "FEMA 2000 / Foreign Exchange Management (Non-debt Instruments) Rules 2019",
+      "description": "Foreign national Jonathan Hale appointed as Director without reference to RBI approval or FEMA compliance. Appointment of foreign directors in an Indian company requires compliance with FEMA 2000 and relevant NDI Rules."
+    },
+    {
+      "issue_id": "missing_arbitration_clause",
+      "severity": "medium",
+      "document": "vendor_contract.txt",
+      "clause_ref": "Clause 9 - Dispute Resolution",
+      "rule": "Arbitration and Conciliation Act 1996",
+      "description": "Vendor contract between Indian company and foreign vendor specifies SIAC arbitration under Singapore law, with no provision for arbitration under the Arbitration and Conciliation Act, 1996. Indian party's remedies under Indian arbitration law are not preserved."
+    },
+    {
+      "issue_id": "missing_equity_vesting_schedule",
+      "severity": "high",
+      "document": "shareholder_agreement.txt",
+      "clause_ref": "Clause 4 - Equity Allocation",
+      "rule": "Companies Act 2013 / SEBI (Share Based Employee Benefits and Sweat Equity) Regulations 2021",
+      "description": "No specific vesting schedule, cliff period, or acceleration provisions defined for founder or employee equity. ESOP terms are deferred to Board discretion without documented parameters, violating best practices under Companies Act 2013 and SEBI ESOP regulations."
+    },
+    {
+      "issue_id": "missing_ip_assignment_clause",
+      "severity": "high",
+      "document": "employment_agreement.txt",
+      "clause_ref": "Clause 7 - Intellectual Property",
+      "rule": "Copyright Act 1957 Sections 17 and 18",
+      "description": "The IP clause uses aspirational language rather than an operative present-tense assignment. Under the Copyright Act, 1957, a valid assignment must be in writing and signed. Absence of a formal assignment clause means IP created by the employee may not automatically vest in the Company."
+    },
+    {
+      "issue_id": "jurisdiction_conflict",
+      "severity": "high",
+      "document": "vendor_contract.txt vs moa.txt",
+      "clause_ref": "Clause 11 - Governing Law (vendor_contract.txt) vs Section VIII - Governing Law (moa.txt)",
+      "rule": "Civil Procedure Code 1908",
+      "description": "The vendor contract specifies Singapore law and Singapore courts as the exclusive jurisdiction, conflicting with the MOA which specifies Indian courts at Bengaluru for all corporate disputes. This creates a cross-document jurisdictional conflict."
+    },
+    {
+      "issue_id": "noncompete_exceeds_limit",
+      "severity": "medium",
+      "document": "employment_agreement.txt",
+      "clause_ref": "Clause 9(a) - Non-Compete",
+      "rule": "Indian Contract Act 1872 Section 27",
+      "description": "The non-compete clause imposes a 36-month restriction post-employment. Indian courts have consistently held that post-employment non-compete agreements are in restraint of trade under Section 27 of the Contract Act, 1872, and are generally unenforceable. Even where courts have granted limited relief, restrictions beyond 12 months are highly unlikely to be upheld."
+    },
+    {
+      "issue_id": "missing_grievance_officer",
+      "severity": "high",
+      "document": "privacy_policy.txt",
+      "clause_ref": "Section 7 - Contact and Grievances",
+      "rule": "IT (Intermediary Guidelines and Digital Media Ethics Code) Rules 2021 / DPDP Act 2023",
+      "description": "The Privacy Policy does not designate a named Grievance Officer with specific contact details as mandated by the IT Rules 2021 and the DPDP Act 2023. A generic team email is insufficient."
+    },
+    {
+      "issue_id": "missing_board_resolution_foreign_investment",
+      "severity": "medium",
+      "document": "moa.txt",
+      "clause_ref": "Section VI - Shareholding at Incorporation",
+      "rule": "FEMA 2000 / Foreign Exchange Management (Non-debt Instruments) Rules 2019",
+      "description": "TechCapital UK Fund II holds 25% of the Company's equity. The MOA does not reference any FEMA compliance filings (such as FC-GPR with RBI) confirming that the foreign investment has been duly reported and approved under applicable regulations."
+    },
+    {
+      "issue_id": "missing_data_processor_agreement_reference",
+      "severity": "low",
+      "document": "privacy_policy.txt",
+      "clause_ref": "Section 4 - Data Sharing",
+      "rule": "DPDP Act 2023 Section 8(2)",
+      "description": "While the Privacy Policy mentions sharing data with cloud infrastructure providers under 'data processing agreements', it does not specify the existence or compliance of formal Data Processing Agreements (DPAs) with all named processors as required under DPDP Act 2023 Section 8(2)."
+    }
+  ]
+}

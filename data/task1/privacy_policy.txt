@@ -1,0 +1,98 @@
+PRIVACY POLICY
+
+NovaTech Solutions Pvt Ltd
+Effective Date: 1 April 2024
+Version 1.0
+
+---
+
+1. INTRODUCTION
+
+NovaTech Solutions Pvt Ltd ("NovaTech", "we", "us", or "our"), a company incorporated under the Companies Act, 2013, with its registered office in Bengaluru, Karnataka, India, is committed to protecting the privacy and personal data of its users. This Privacy Policy describes how we collect, use, disclose, and safeguard information when you use our platform, website, and related services (collectively, the "Services").
+
+By accessing or using our Services, you agree to the terms of this Privacy Policy. If you do not agree, please discontinue use of the Services immediately.
+
+---
+
+2. INFORMATION WE COLLECT
+
+We collect the following categories of personal data:
+
+(a) Identity Information: name, date of birth, government identification numbers where required for KYC compliance.
+(b) Contact Information: email address, phone number, correspondence address.
+(c) Financial Information: bank account details, UPI IDs, transaction history (collected solely for payment processing).
+(d) Device and Usage Data: IP address, browser type, operating system, pages visited, time spent on pages, and clickstream data, collected automatically via cookies and similar tracking technologies.
+(e) User-Generated Content: documents, queries, or other content you upload or submit through the platform.
+
+We collect this data directly from you when you register, transact, or interact with our Services, and automatically through your use of our platform.
+
+---
+
+3. DATA HANDLING AND USE
+
+We use your personal data for the following purposes:
+
+- Providing, maintaining, and improving our Services
+- Processing transactions and sending related communications
+- Verifying your identity for regulatory compliance (including KYC requirements under applicable Indian law)
+- Sending service announcements, technical notices, and support messages
+- Responding to your inquiries and fulfilling your requests
+- Detecting, investigating, and preventing fraudulent or illegal activities
+- Complying with applicable laws, regulations, and legal processes
+
+We process your data on the basis of contractual necessity, legal obligation, and our legitimate business interests.
+
+---
+
+4. DATA SHARING AND DISCLOSURE
+
+NovaTech does not sell your personal data to third parties. We may share your data with:
+
+(a) Service Providers: third-party vendors who assist us in operating our platform (e.g., cloud hosting providers, payment gateways) under strict data processing agreements.
+(b) Legal and Regulatory Authorities: where required by law, court order, or government directive, including disclosures required under the Information Technology Act, 2000, and the Digital Personal Data Protection Act, 2023.
+(c) Business Transfers: in the event of a merger, acquisition, or asset sale, your data may be transferred to the acquiring entity, subject to equivalent privacy protections.
+
+All third-party data processors are contractually bound to process data only as instructed by NovaTech and in accordance with applicable data protection laws.
+
+---
+
+5. YOUR RIGHTS
+
+As a data principal under the Digital Personal Data Protection Act, 2023, you have the following rights:
+
+- Right to access information about your personal data held by us
+- Right to correction of inaccurate or incomplete personal data
+- Right to erasure of your personal data where processing is no longer necessary
+- Right to grievance redressal through our designated channels
+- Right to nominate another individual to exercise rights on your behalf in the event of death or incapacity
+
+To exercise any of these rights, please contact us using the details provided below.
+
+---
+
+6. SECURITY
+
+We implement industry-standard technical and organisational measures to protect your personal data against unauthorised access, alteration, disclosure, or destruction. These include encryption in transit and at rest, access controls, and regular security audits. However, no method of electronic transmission or storage is completely secure, and we cannot guarantee absolute security.
+
+---
+
+7. COOKIES
+
+We use cookies and similar tracking technologies to enhance your experience on our platform. You may control cookie preferences through your browser settings; however, disabling certain cookies may affect the functionality of our Services.
+
+---
+
+8. CONTACT INFORMATION
+
+For any questions, concerns, or requests regarding this Privacy Policy or our data processing practices, please contact:
+
+Data Protection Team
+NovaTech Solutions Pvt Ltd
+4th Floor, Prestige Tower, MG Road
+Bengaluru - 560001, Karnataka, India
+Email: privacy@novatechsolutions.in
+Phone: +91-80-4567-8901
+
+---
+
+NovaTech Solutions Pvt Ltd reserves the right to update this Privacy Policy at any time. We will notify you of material changes by posting the updated policy on our website and, where required by law, by direct communication.

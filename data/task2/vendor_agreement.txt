@@ -1,0 +1,58 @@
+VENDOR SERVICE AGREEMENT
+
+This Vendor Service Agreement ("Agreement") is entered into as of 1 March 2024 ("Effective Date") between:
+
+NovaTech Solutions Pvt Ltd, a company incorporated under the Companies Act, 2013, having its registered office at 4th Floor, Prestige Tower, MG Road, Bengaluru - 560001, Karnataka, India (hereinafter referred to as "Client"); and
+
+CloudServe Ltd, a company incorporated under the laws of England and Wales, having its registered office at 22 Canary Wharf, Level 18, London E14 5AB, United Kingdom (hereinafter referred to as "Vendor").
+
+Client and Vendor are individually referred to as a "Party" and collectively as the "Parties".
+
+---
+
+1. SCOPE OF SERVICES
+
+The Vendor agrees to provide cloud infrastructure management, data backup, and platform hosting services as described in Schedule A attached hereto ("Services"). The Vendor shall ensure a minimum uptime of 99.5% per calendar month for all hosted systems. Any planned maintenance shall be notified to the Client at least 72 hours in advance.
+
+2. PAYMENT TERMS
+
+The Client shall pay the Vendor a monthly retainer fee of GBP 4,500 (Four Thousand Five Hundred Pounds Sterling), invoiced on the first business day of each month. Payment shall be due within 30 days of invoice receipt. Overdue payments shall attract interest at the rate of 8% per annum from the due date.
+
+3. TERM AND TERMINATION
+
+This Agreement commences on the Effective Date and continues for an initial period of two (2) years, unless earlier terminated. Either Party may terminate this Agreement by providing 90 days' written notice. The Client may terminate immediately for cause if the Vendor materially breaches this Agreement and fails to remedy such breach within 30 days of written notification.
+
+4. CONFIDENTIALITY
+
+Each Party agrees to maintain the confidentiality of the other Party's proprietary information disclosed under this Agreement. Confidential information shall not be disclosed to third parties without prior written consent, except as required by applicable law.
+
+5. DATA PROTECTION
+
+The Vendor shall process any personal data provided by the Client solely in accordance with the Client's instructions and in compliance with applicable data protection laws, including the UK General Data Protection Regulation (UK GDPR) and the Data Protection Act 2018.
+
+6. LIMITATION OF LIABILITY
+
+In no event shall either Party's aggregate liability exceed the total fees paid or payable under this Agreement in the 12 months preceding the claim. Neither Party shall be liable for indirect, consequential, or incidental losses.
+
+7. FORCE MAJEURE
+
+Neither Party shall be liable for delays or failures in performance resulting from events beyond its reasonable control, including natural disasters, acts of government, or internet outages.
+
+8. INTELLECTUAL PROPERTY
+
+All pre-existing intellectual property remains the property of the respective Party. Any tools, scripts, or configurations developed specifically for the Client under this Agreement shall vest in the Client upon full payment.
+
+9. DISPUTE RESOLUTION
+
+Any dispute, controversy, or claim arising out of or relating to this Agreement, including any question regarding its existence, validity, or termination, shall be referred to and finally resolved by arbitration under the auspices of the London Court of International Arbitration (LCIA). The seat and place of arbitration shall be London, United Kingdom. The governing law of this Agreement shall be the laws of England and Wales, and the courts of England shall have exclusive jurisdiction to enforce any arbitral award or grant interim relief.
+
+10. ENTIRE AGREEMENT
+
+This Agreement constitutes the entire agreement between the Parties with respect to its subject matter and supersedes all prior negotiations, understandings, and agreements.
+
+IN WITNESS WHEREOF, the Parties have executed this Agreement as of the Effective Date.
+
+For NovaTech Solutions Pvt Ltd:        For CloudServe Ltd:
+Signature: _______________________     Signature: _______________________
+Name: Arjun Mehta                      Name: James Whitfield
+Designation: CEO                       Designation: Managing Director

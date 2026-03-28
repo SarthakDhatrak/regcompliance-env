@@ -1,0 +1,63 @@
+VENDOR SERVICE CONTRACT
+
+This Vendor Service Contract ("Contract") is entered into as of 1 February 2024 between:
+
+NovaTech Solutions Pvt Ltd, CIN: U72900KA2020PTC123456, having its registered office at 4th Floor, Prestige Tower, MG Road, Bengaluru - 560001, Karnataka, India ("Client"); and
+
+DevBridge Technologies Pte Ltd, a company incorporated under the Laws of Singapore, having its principal place of business at 18 Raffles Quay, #22-00, Singapore 048582 ("Vendor").
+
+---
+
+1. SCOPE OF WORK
+
+The Vendor shall provide full-stack software development, DevOps setup, and ongoing technical support services to the Client as detailed in the Statement of Work ("SOW") attached as Annexure I. The Vendor's team shall include a minimum of four (4) senior engineers dedicated to the Client's projects. Weekly progress reports shall be submitted to the Client's CTO every Friday by 6:00 PM IST.
+
+2. FEES
+
+The Client shall pay the Vendor a monthly fee of SGD 18,000 (Eighteen Thousand Singapore Dollars). Invoices shall be raised on the last working day of each month, and payment shall be made within 21 working days. Delayed payments attract a penalty of 1.5% per month on the outstanding amount.
+
+3. TERM
+
+This Contract commences on 1 February 2024 and is valid for 18 months, unless terminated earlier. Either Party may terminate without cause by providing 60 days' written notice.
+
+4. DELIVERABLES AND ACCEPTANCE
+
+All deliverables submitted by the Vendor shall be subject to a 14-day acceptance testing period. The Client shall provide written acceptance or rejection with detailed reasons within 14 days. Failure to respond within 14 days shall be deemed acceptance.
+
+5. CONFIDENTIALITY
+
+The Vendor agrees to keep all Client proprietary information, trade secrets, business strategies, and source code strictly confidential during and after the term of this Contract for a period of 3 years.
+
+6. INTELLECTUAL PROPERTY
+
+All work product, code, documentation, and derivatives created by the Vendor exclusively for the Client under this Contract shall be the exclusive property of the Client upon receipt of full payment. The Vendor retains ownership of its pre-existing tools and frameworks.
+
+7. DATA SECURITY
+
+The Vendor shall implement appropriate technical and organisational security measures to protect Client data processed in connection with this Contract, including encryption, access controls, and audit logging.
+
+8. LIMITATION OF LIABILITY
+
+The Vendor's maximum aggregate liability under this Contract shall not exceed 3 months' fees. Neither Party shall be liable for consequential, indirect, or punitive damages.
+
+9. DISPUTE RESOLUTION
+
+Any dispute arising out of or in connection with this Contract shall be resolved by arbitration administered by the Singapore International Arbitration Centre (SIAC) under its rules. The seat of arbitration shall be Singapore, and the governing law shall be the laws of Singapore. Judgments on SIAC awards may be enforced in any court of competent jurisdiction. The parties agree that the courts of Singapore shall have exclusive jurisdiction to grant interim measures and enforce awards.
+
+Note: This Contract does not contain a provision for arbitration under the Arbitration and Conciliation Act, 1996, nor does it provide for dispute resolution under Indian law, notwithstanding that the Client is an Indian company with obligations and operations primarily within India.
+
+10. FORCE MAJEURE
+
+Neither Party shall be in breach of this Contract to the extent that performance is delayed or prevented by circumstances beyond their reasonable control.
+
+11. GOVERNING LAW
+
+This Contract and all matters arising out of or in connection with it shall be governed by and construed in accordance with the laws of Singapore.
+
+IN WITNESS WHEREOF:
+
+For NovaTech Solutions Pvt Ltd:         For DevBridge Technologies Pte Ltd:
+Signature: ___________________          Signature: ___________________
+Name: Arjun Mehta                       Name: Ravi Chandran
+Designation: CEO                        Designation: CEO
+Date: 1 February 2024                   Date: 1 February 2024

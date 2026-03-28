@@ -1,0 +1,13 @@
+{
+  "task_id": "task1",
+  "total_issues": 1,
+  "issues": [
+    {
+      "issue_id": "missing_data_retention_clause",
+      "severity": "high",
+      "clause_ref": "Section 3 - Data Handling",
+      "rule": "DPDP Act 2023 Section 8(7)",
+      "description": "No data retention period specified. Mandatory under DPDP Act 2023."
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "task_id": "task2",
+  "total_issues": 2,
+  "issues": [
+    {
+      "issue_id": "jurisdiction_conflict_vendor",
+      "severity": "high",
+      "clause_ref": "Clause 9 - Dispute Resolution",
+      "rule": "Civil Procedure Code 1908",
+      "description": "Vendor agreement specifies UK jurisdiction conflicting with company terms."
+    },
+    {
+      "issue_id": "jurisdiction_conflict_terms",
+      "severity": "high",
+      "clause_ref": "Section 12 - Governing Law",
+      "rule": "Civil Procedure Code 1908",
+      "description": "Company terms specify Indian jurisdiction conflicting with vendor agreement."
+    }
+  ]
+}

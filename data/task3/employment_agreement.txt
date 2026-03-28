@@ -1,0 +1,74 @@
+EMPLOYMENT AGREEMENT
+
+NovaTech Solutions Private Limited
+CIN: U72900KA2020PTC123456
+
+This Employment Agreement ("Agreement") is entered into as of 1 March 2024 between:
+
+NovaTech Solutions Private Limited, having its registered office at 4th Floor, Prestige Tower, MG Road, Bengaluru - 560001, Karnataka, India (hereinafter referred to as "Company"); and
+
+Rohan Sharma, residing at Flat 3B, Sadashivanagar, Bengaluru - 560080, Karnataka (hereinafter referred to as "Employee").
+
+---
+
+1. POSITION AND COMMENCEMENT
+
+The Employee is appointed as Senior Software Engineer with effect from 1 March 2024. The Employee shall report to the Chief Technology Officer. The primary place of work shall be Bengaluru, Karnataka, though the Employee may be required to travel for business purposes.
+
+2. PROBATION
+
+The Employee shall serve a probation period of 6 months from the commencement date. During probation, either Party may terminate this Agreement with 15 days' written notice.
+
+3. COMPENSATION
+
+(a) Fixed Gross Salary: INR 22,00,000 per annum, payable monthly in equal instalments.
+(b) Performance Bonus: Up to 15% of fixed salary based on annual performance review.
+(c) Benefits: health insurance for self, spouse, and two dependent children; mobile reimbursement up to INR 1,500 per month; meal vouchers.
+
+4. WORKING HOURS
+
+Standard working hours are 9:30 AM to 6:30 PM, Monday through Friday. The Company may require reasonable overtime to meet business needs, which shall not be separately compensated in the case of managerial or supervisory roles.
+
+5. LEAVES
+
+The Employee is entitled to 18 days of annual leave, 12 days of casual/sick leave, and all declared public holidays per calendar year.
+
+6. CONFIDENTIALITY
+
+The Employee agrees to maintain strict confidentiality with respect to all proprietary and confidential information of the Company, including but not limited to client data, source code, trade secrets, business strategies, and financial information. This obligation survives the termination of employment indefinitely.
+
+7. INTELLECTUAL PROPERTY
+
+All work product developed by the Employee during the course of employment, whether or not created using Company resources, including but not limited to code, documentation, processes, inventions, and analyses, shall belong exclusively to the Company. The Employee agrees to execute any additional assignments, waivers, or documents reasonably required by the Company to perfect its rights in such work product.
+
+Note: This Agreement does not contain an explicit IP assignment clause or present-tense assignment of rights as required under the Copyright Act, 1957, Sections 17 and 18, and applicable software IP principles. The foregoing language is aspirational rather than a formal assignment.
+
+8. NON-DISCLOSURE
+
+The Employee shall not, during or after employment, disclose any trade secrets, client lists, proprietary algorithms, or technical know-how of the Company to any third party, except as required by applicable law.
+
+9. NON-COMPETE AND NON-SOLICITATION
+
+(a) Non-Compete: For a period of 36 months following the termination or resignation of the Employee for any reason, the Employee shall not, directly or indirectly, engage in, be employed by, consult for, or hold any interest in any business that is engaged in legal-tech, compliance-tech, or document management software targeting the Indian startup ecosystem. This restriction applies across all cities in India where the Company has active operations or clients.
+
+(b) Non-Solicitation: For a period of 24 months following the end of employment, the Employee shall not directly or indirectly solicit, recruit, or induce any employee, contractor, or advisor of the Company to terminate their engagement with the Company.
+
+10. TERMINATION
+
+After the probation period, either Party may terminate this Agreement with 90 days' written notice or equivalent pay in lieu. Termination for cause may be effected immediately upon written notice in cases of gross misconduct, fraud, or willful neglect.
+
+11. GOVERNING LAW AND DISPUTE RESOLUTION
+
+This Agreement shall be governed by the laws of India. Any disputes shall be referred to arbitration in Bengaluru under the Arbitration and Conciliation Act, 1996.
+
+12. ENTIRE AGREEMENT
+
+This Agreement constitutes the entire agreement between the Parties relating to the Employee's employment and supersedes all prior discussions and representations.
+
+IN WITNESS WHEREOF:
+
+For NovaTech Solutions Pvt Ltd:         Employee:
+Signature: ___________________          Signature: ___________________
+Name: Priya Kapoor                      Name: Rohan Sharma
+Designation: Executive Director
+Date: 1 March 2024                      Date: 1 March 2024

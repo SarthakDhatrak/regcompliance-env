@@ -1,0 +1,86 @@
+SHAREHOLDERS' AGREEMENT
+
+NovaTech Solutions Private Limited
+CIN: U72900KA2020PTC123456
+
+This Shareholders' Agreement ("Agreement") is entered into as of 15 February 2024 by and among:
+
+1. Arjun Mehta, residing at No. 12, Indiranagar, Bengaluru - 560038 ("Founder 1");
+2. Priya Kapoor, residing at No. 47, Koramangala, Bengaluru - 560034 ("Founder 2");
+3. TechCapital UK Fund II, a fund registered under the laws of England and Wales, represented by its General Partner TechCapital Management Ltd ("Investor"); and
+4. NovaTech Solutions Private Limited, the Company.
+
+---
+
+1. BACKGROUND
+
+The Company was incorporated on 1 March 2020 to develop technology-enabled compliance and legal-tech solutions. The Investor has agreed to invest in the Company, and the Parties wish to set forth their respective rights and obligations as shareholders.
+
+2. SHARE CAPITAL AND OWNERSHIP
+
+Following completion of the investment round contemplated herein, the shareholding structure shall be:
+
+| Shareholder          | No. of Shares   | % Holding |
+|----------------------|-----------------|-----------|
+| Arjun Mehta          | 45,00,000       | 45%       |
+| Priya Kapoor         | 30,00,000       | 30%       |
+| TechCapital UK Fund II | 25,00,000     | 25%       |
+| Total                | 1,00,00,000     | 100%      |
+
+3. FOUNDER SHARES AND LOCK-IN
+
+The Founder Shares held by Arjun Mehta and Priya Kapoor shall be subject to a lock-in period of 24 months from the Effective Date. During the lock-in period, Founders shall not transfer, pledge, or encumber any Founder Shares without prior written consent of the Investor holding more than 15% of the Company's share capital.
+
+4. EQUITY ALLOCATION
+
+The Company may, from time to time, allocate equity or stock options to employees, advisors, and service providers from the Employee Stock Option Pool ("ESOP Pool"), which is set at 10% of the fully-diluted share capital. All allocations shall be approved by the Board. However, no specific vesting schedule for founder or employee equity has been defined in this Agreement or in any attached Schedule. Vesting terms, cliff periods, and acceleration provisions shall be determined separately by the Board at its discretion, without obligation to document the same in this Agreement.
+
+5. BOARD COMPOSITION
+
+The Board shall comprise five (5) directors:
+- Two (2) directors nominated by Arjun Mehta and Priya Kapoor jointly
+- One (1) director nominated by the Investor (currently Jonathan Hale)
+- One (1) Independent Director
+- One (1) Woman Director (as required under Companies Act, 2013, Section 149)
+
+6. INVESTOR RIGHTS
+
+The Investor shall have the following rights:
+(a) Information Rights: audited financials, quarterly management accounts, and Board minutes within 45 days of each quarter end.
+(b) Anti-Dilution: broad-based weighted average anti-dilution protection.
+(c) Pre-emption Rights: right of first refusal on any new issuances of shares before third parties.
+(d) Tag-Along Rights: right to participate in any sale of Founder Shares exceeding 10% of the Company's share capital.
+
+7. DRAG-ALONG RIGHTS
+
+If shareholders holding more than 75% of the Company's shares wish to sell the Company, they may require all other shareholders to participate in the sale on the same terms and conditions.
+
+8. RESERVED MATTERS
+
+The following matters require prior written approval of the Investor:
+- Amendments to the MOA or AOA
+- Issuance of new securities or convertible instruments
+- Incurring debt in excess of INR 1 Crore
+- Any merger, acquisition, demerger, or restructuring
+- Appointment or removal of the statutory auditor
+
+9. CONFIDENTIALITY
+
+Each Party agrees to keep the terms of this Agreement and all information received from other Parties strictly confidential. This obligation survives termination of this Agreement for a period of 5 years.
+
+10. GOVERNING LAW
+
+This Agreement shall be governed by the laws of India. All disputes shall be resolved by arbitration in Bengaluru under the Arbitration and Conciliation Act, 1996.
+
+11. ENTIRE AGREEMENT
+
+This Agreement constitutes the entire agreement among the Parties with respect to its subject matter.
+
+Signed and executed by:
+
+________________________        ________________________
+Arjun Mehta (Founder 1)        Priya Kapoor (Founder 2)
+
+________________________        ________________________
+TechCapital UK Fund II          NovaTech Solutions Pvt Ltd
+(by its authorised signatory)   (by its Board of Directors)
