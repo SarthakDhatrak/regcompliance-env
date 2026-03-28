@@ -1,11 +1,14 @@
 from __future__ import annotations
 
 import datetime
+import pathlib
 from typing import Any, Dict, List, Optional
 
 import uvicorn
 from fastapi import FastAPI, HTTPException, Request
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.responses import FileResponse
+from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel
 
 from env.document_generator import DocumentGenerator
@@ -16,6 +19,9 @@ from env.tasks import TaskLoader
 # ---------------------------------------------------------------------------
 # App setup
 # ---------------------------------------------------------------------------
+
+# Path to the ui/ folder (one level above the env/ package)
+_UI_DIR: pathlib.Path = pathlib.Path(__file__).resolve().parent.parent / "ui"
 
 app = FastAPI(
     title="regcompliance-env",
@@ -172,25 +178,10 @@ class LeaderboardResponse(BaseModel):
 # Endpoints
 # ---------------------------------------------------------------------------
 
-@app.get("/", response_model=RootResponse, tags=["meta"])
-def root() -> RootResponse:
-    """Return environment metadata."""
-    return RootResponse(
-        name="RegComplianceEnv",
-        version="1.0.0",
-        description="OpenEnv environment for training AI agents on Indian startup legal compliance",
-        status="running",
-        endpoints=["/health", "/reset", "/step", "/state", "/replay", "/leaderboard", "/docs"],
-        tasks=[
-            {"id": "task1", "name": "Privacy Policy Compliance", "difficulty": "easy"},
-            {"id": "task2", "name": "Contractual Jurisdiction Conflict", "difficulty": "medium"},
-            {"id": "task3", "name": "Comprehensive Startup Audit", "difficulty": "hard"},
-        ],
-        space_url="https://huggingface.co/spaces/sarthakdhatrak/regcompliance-env",
-        docs_url="https://sarthakdhatrak-regcompliance-env.hf.space/docs",
-        leaderboard_url="/leaderboard",
-        replay_url="/replay",
-    )
+@app.get("/", include_in_schema=False)
+def root() -> FileResponse:
+    """Serve the monitoring dashboard UI."""
+    return FileResponse(str(_UI_DIR / "index.html"), media_type="text/html")
 
 
 @app.get("/health", response_model=HealthResponse, tags=["meta"])
@@ -370,6 +361,14 @@ def _update_leaderboard(entry: Dict[str, Any]) -> None:
     leaderboard.append(entry)
     leaderboard.sort(key=lambda e: e["score"], reverse=True)
     del leaderboard[10:]  # trim to max 10
+
+
+# ---------------------------------------------------------------------------
+# Static UI files — mount AFTER all API routes so it doesn't shadow them.
+# ---------------------------------------------------------------------------
+
+if _UI_DIR.exists():
+    app.mount("/ui", StaticFiles(directory=str(_UI_DIR), html=True), name="ui-static")
 
 
 # ---------------------------------------------------------------------------

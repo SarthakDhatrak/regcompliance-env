@@ -1,0 +1,586 @@
+<!DOCTYPE html>
+<html class="dark" lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+  <title>RegComplianceEnv | Monitoring Dashboard</title>
+  <meta name="description" content="Live monitoring dashboard for RegComplianceEnv — an OpenEnv-compatible environment for training AI agents on Indian startup legal compliance."/>
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Manrope:wght@200;300;400;500;600;700;800&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+  <script>
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: {
+            "surface-container-highest": "#33343b",
+            "primary": "#c0c1ff",
+            "outline": "#908fa0",
+            "on-surface": "#e2e2eb",
+            "surface-container-lowest": "#0c0e14",
+            "inverse-on-surface": "#2e3037",
+            "primary-container": "#8083ff",
+            "secondary-container": "#42447b",
+            "on-secondary": "#292a60",
+            "on-secondary-fixed": "#13144a",
+            "on-background": "#e2e2eb",
+            "surface-container-low": "#191b22",
+            "on-secondary-fixed-variant": "#404178",
+            "on-error-container": "#ffdad6",
+            "surface-dim": "#111319",
+            "surface-tint": "#c0c1ff",
+            "secondary": "#c0c1ff",
+            "tertiary": "#ffb783",
+            "surface-variant": "#33343b",
+            "on-error": "#690005",
+            "tertiary-fixed": "#ffdcc5",
+            "surface-container-high": "#282a30",
+            "on-surface-variant": "#c7c4d7",
+            "surface-container": "#1e1f26",
+            "tertiary-container": "#d97721",
+            "on-primary-fixed": "#07006c",
+            "surface": "#111319",
+            "background": "#111319",
+            "primary-fixed": "#e1e0ff",
+            "inverse-surface": "#e2e2eb",
+            "error": "#ffb4ab",
+            "surface-bright": "#373940",
+            "error-container": "#93000a",
+            "inverse-primary": "#494bd6",
+            "on-primary": "#1000a9",
+            "outline-variant": "#464554",
+            "primary-fixed-dim": "#c0c1ff",
+            "secondary-fixed": "#e1e0ff",
+            "secondary-fixed-dim": "#c0c1ff",
+            "on-secondary-container": "#b2b3f2"
+          },
+          fontFamily: {
+            "headline": ["Space Grotesk", "sans-serif"],
+            "body": ["Manrope", "sans-serif"],
+            "label": ["Inter", "sans-serif"]
+          },
+          borderRadius: {
+            "DEFAULT": "0.125rem",
+            "lg": "0.25rem",
+            "xl": "0.5rem",
+            "2xl": "0.75rem",
+            "full": "9999px"
+          }
+        }
+      }
+    };
+  </script>
+  <style>
+    .material-symbols-outlined {
+      font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+    }
+    .blinking-dot {
+      animation: blink 1.5s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+    }
+    @keyframes blink {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.3; transform: scale(0.8); }
+    }
+    .skeleton {
+      animation: skeleton-loading 1.4s ease-in-out infinite alternate;
+      background: linear-gradient(90deg, #282a30 25%, #33343b 50%, #282a30 75%);
+      background-size: 200% 100%;
+      border-radius: 0.25rem;
+    }
+    @keyframes skeleton-loading {
+      0% { background-position: 200% 0; }
+      100% { background-position: -200% 0; }
+    }
+    .score-bar {
+      transition: width 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    ::-webkit-scrollbar { width: 6px; height: 6px; }
+    ::-webkit-scrollbar-track { background: #111319; }
+    ::-webkit-scrollbar-thumb { background: #464554; border-radius: 3px; }
+    ::-webkit-scrollbar-thumb:hover { background: #c0c1ff; }
+  </style>
+</head>
+<body class="bg-surface-dim text-on-surface font-body selection:bg-primary selection:text-on-primary min-h-screen flex flex-col">
+
+  <!-- ═══════════════════════ TOP NAVBAR ═══════════════════════ -->
+  <header class="fixed top-0 left-0 w-full z-50 flex justify-between items-center px-6 h-16 bg-[#111319] border-b border-outline-variant/10">
+    <div class="flex items-center gap-8">
+      <span class="text-white font-headline font-bold text-lg tracking-tight select-none">⚖️ RegComplianceEnv</span>
+      <nav class="hidden md:flex items-center gap-3">
+        <span class="px-3 py-1 rounded-full bg-green-500/10 text-green-400 text-xs font-headline font-bold border border-green-500/20">3 Tasks</span>
+        <span class="px-3 py-1 rounded-full bg-primary/10 text-primary text-xs font-headline font-bold border border-primary/20">7 Indian Laws</span>
+        <span class="px-3 py-1 rounded-full bg-tertiary/10 text-tertiary text-xs font-headline font-bold border border-tertiary/20">OpenEnv Hackathon</span>
+      </nav>
+    </div>
+    <div class="flex items-center gap-4">
+      <div class="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-surface-container-high border border-outline-variant/20">
+        <span class="w-2 h-2 rounded-full bg-green-500 blinking-dot"></span>
+        <span id="api-status-text" class="text-xs font-headline font-bold text-primary tracking-tight">API Live</span>
+      </div>
+    </div>
+  </header>
+
+  <div class="flex flex-1 pt-16">
+
+    <!-- ═══════════════════════ SIDEBAR ═══════════════════════ -->
+    <aside class="hidden lg:flex flex-col border-r border-outline-variant/10 w-64 bg-surface-container-low fixed h-[calc(100vh-64px)] top-16">
+      <div class="p-6">
+        <h2 class="font-headline font-bold text-primary text-base">RegCompliance</h2>
+        <p class="text-[10px] text-on-surface-variant font-label uppercase tracking-[0.2em] mt-1">Sovereign Sentinel v1.0</p>
+      </div>
+      <nav class="flex-1 px-4 space-y-1">
+        <a class="flex items-center gap-3 px-4 py-3 text-primary bg-surface-container-high rounded-lg font-medium text-sm transition-all" href="#">
+          <span class="material-symbols-outlined text-xl">dashboard</span>Dashboard
+        </a>
+        <a class="flex items-center gap-3 px-4 py-3 text-on-surface/60 hover:bg-surface-container hover:text-white rounded-lg font-medium text-sm transition-all" href="https://sarthakdhatrak-regcompliance-env.hf.space/docs" target="_blank">
+          <span class="material-symbols-outlined text-xl">terminal</span>API Docs
+        </a>
+        <a class="flex items-center gap-3 px-4 py-3 text-on-surface/60 hover:bg-surface-container hover:text-white rounded-lg font-medium text-sm transition-all" href="https://huggingface.co/spaces/sarthakdhatrak/regcompliance-env" target="_blank">
+          <span class="material-symbols-outlined text-xl">open_in_new</span>HF Space
+        </a>
+      </nav>
+      <!-- API Base badge -->
+      <div class="p-4 border-t border-outline-variant/10">
+        <p class="text-[10px] text-on-surface-variant font-label uppercase tracking-widest mb-1">API Base</p>
+        <p class="text-[10px] text-primary font-mono break-all">sarthakdhatrak-regcompliance-env.hf.space</p>
+      </div>
+    </aside>
+
+    <!-- ═══════════════════════ MAIN CONTENT ═══════════════════════ -->
+    <main class="flex-1 lg:ml-64 p-6 lg:p-8 space-y-10 min-w-0">
+
+      <!-- ── STATS ROW ────────────────────────────────────────── -->
+      <section class="grid grid-cols-2 lg:grid-cols-4 gap-4">
+
+        <!-- Total Runs -->
+        <div class="bg-surface-container p-6 rounded-2xl border-l-4 border-primary">
+          <p class="text-[10px] font-label uppercase tracking-widest text-on-surface-variant mb-2">Total Runs</p>
+          <h3 id="stat-runs" class="text-3xl font-headline font-bold text-white tracking-tighter">—</h3>
+          <p class="text-[10px] text-primary mt-2">Live from Leaderboard</p>
+        </div>
+
+        <!-- Best Score -->
+        <div class="bg-surface-container p-6 rounded-2xl border-l-4 border-tertiary">
+          <p class="text-[10px] font-label uppercase tracking-widest text-on-surface-variant mb-2">Best Score</p>
+          <h3 id="stat-score" class="text-3xl font-headline font-bold text-white tracking-tighter">—</h3>
+          <p class="text-[10px] text-tertiary mt-2">Top Agent Performance</p>
+        </div>
+
+        <!-- Tasks -->
+        <div class="bg-surface-container p-6 rounded-2xl border-l-4 border-outline-variant">
+          <p class="text-[10px] font-label uppercase tracking-widest text-on-surface-variant mb-2">Tasks</p>
+          <h3 class="text-3xl font-headline font-bold text-white tracking-tighter">3</h3>
+          <p class="text-[10px] text-on-surface-variant mt-2">Active Environment Tasks</p>
+        </div>
+
+        <!-- Laws Covered -->
+        <div class="bg-surface-container p-6 rounded-2xl border-l-4 border-primary-container">
+          <p class="text-[10px] font-label uppercase tracking-widest text-on-surface-variant mb-2">Laws Covered</p>
+          <h3 class="text-3xl font-headline font-bold text-white tracking-tighter">7</h3>
+          <p class="text-[10px] text-primary-container mt-2">Indian Legal Statutes</p>
+        </div>
+
+      </section>
+
+      <!-- ── LEADERBOARD ────────────────────────────────────────── -->
+      <section class="space-y-4">
+        <div class="flex items-center justify-between">
+          <div>
+            <h2 class="text-xl font-headline font-bold text-white">Live Leaderboard</h2>
+            <p class="text-sm text-on-surface-variant">Real-time ranking of compliance agents</p>
+          </div>
+          <div class="flex items-center gap-3">
+            <button id="refresh-btn" class="flex items-center gap-2 px-4 py-2 bg-primary/10 hover:bg-primary/20 text-primary border border-primary/20 rounded-lg text-xs font-headline font-bold transition-all active:scale-95">
+              <span class="material-symbols-outlined text-sm">refresh</span>Refresh
+            </button>
+            <div class="flex items-center gap-2 px-3 py-2 bg-surface-container-high rounded-lg text-[10px] text-primary font-bold border border-outline-variant/20">
+              <span class="w-1.5 h-1.5 rounded-full bg-primary blinking-dot"></span>
+              <span id="countdown-text">LOADING...</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="overflow-x-auto bg-surface-container rounded-2xl border border-outline-variant/10">
+          <table class="w-full text-left border-collapse min-w-[700px]">
+            <thead>
+              <tr class="bg-surface-container-low/50">
+                <th class="px-6 py-4 text-[10px] font-label uppercase tracking-widest text-on-surface-variant w-16">Rank</th>
+                <th class="px-6 py-4 text-[10px] font-label uppercase tracking-widest text-on-surface-variant">Task</th>
+                <th class="px-6 py-4 text-[10px] font-label uppercase tracking-widest text-on-surface-variant">Score</th>
+                <th class="px-6 py-4 text-[10px] font-label uppercase tracking-widest text-on-surface-variant">Issues</th>
+                <th class="px-6 py-4 text-[10px] font-label uppercase tracking-widest text-on-surface-variant">False Pos</th>
+                <th class="px-6 py-4 text-[10px] font-label uppercase tracking-widest text-on-surface-variant">Model</th>
+                <th class="px-6 py-4 text-[10px] font-label uppercase tracking-widest text-on-surface-variant">Time</th>
+              </tr>
+            </thead>
+            <tbody id="lb-body" class="divide-y divide-outline-variant/10">
+              <!-- Skeleton rows while loading -->
+              <tr><td colspan="7" class="px-6 py-12 text-center">
+                <div class="flex flex-col items-center gap-3 text-on-surface-variant">
+                  <div class="w-8 h-8 border-2 border-primary/30 border-t-primary rounded-full animate-spin"></div>
+                  <span class="text-sm">Loading leaderboard…</span>
+                </div>
+              </td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- ── TASK CARDS ─────────────────────────────────────────── -->
+      <section class="space-y-4">
+        <div>
+          <h2 class="text-xl font-headline font-bold text-white">Active Task Modules</h2>
+          <p class="text-sm text-on-surface-variant">Deploy agents to specific regulatory scenarios</p>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
+
+          <!-- Easy -->
+          <div class="bg-surface-container-low border border-outline-variant/10 p-6 rounded-2xl hover:border-green-500/30 transition-all group cursor-default">
+            <div class="flex justify-between items-start mb-5">
+              <span class="px-3 py-1 rounded-full bg-green-500/10 text-green-400 text-[10px] font-bold uppercase tracking-widest border border-green-500/20">Easy</span>
+              <span class="material-symbols-outlined text-on-surface-variant/40 group-hover:text-green-400 transition-colors">description</span>
+            </div>
+            <h4 class="text-base font-headline font-bold text-white mb-2">Single Clause Detection</h4>
+            <p class="text-sm text-on-surface-variant leading-relaxed mb-5">Find the missing data retention clause in a synthetic privacy policy generated for IT Act compliance.</p>
+            <div class="flex items-center gap-3 text-[10px] font-label text-green-400 font-semibold uppercase tracking-wider">
+              <span>1 doc</span><span class="w-1 h-1 rounded-full bg-outline-variant"></span><span>1 issue</span>
+            </div>
+          </div>
+
+          <!-- Medium -->
+          <div class="bg-surface-container-low border border-outline-variant/10 p-6 rounded-2xl hover:border-tertiary/30 transition-all group cursor-default">
+            <div class="flex justify-between items-start mb-5">
+              <span class="px-3 py-1 rounded-full bg-tertiary/10 text-tertiary text-[10px] font-bold uppercase tracking-widest border border-tertiary/20">Medium</span>
+              <span class="material-symbols-outlined text-on-surface-variant/40 group-hover:text-tertiary transition-colors">compare_arrows</span>
+            </div>
+            <h4 class="text-base font-headline font-bold text-white mb-2">Cross-Document Conflict</h4>
+            <p class="text-sm text-on-surface-variant leading-relaxed mb-5">Identify jurisdiction conflicts between a vendor agreement and company master service terms.</p>
+            <div class="flex items-center gap-3 text-[10px] font-label text-tertiary font-semibold uppercase tracking-wider">
+              <span>2 docs</span><span class="w-1 h-1 rounded-full bg-outline-variant"></span><span>2 issues</span>
+            </div>
+          </div>
+
+          <!-- Hard -->
+          <div class="bg-surface-container-low border border-outline-variant/10 p-6 rounded-2xl hover:border-error/30 transition-all group cursor-default">
+            <div class="flex justify-between items-start mb-5">
+              <span class="px-3 py-1 rounded-full bg-error/10 text-error text-[10px] font-bold uppercase tracking-widest border border-error/20">Hard</span>
+              <span class="material-symbols-outlined text-on-surface-variant/40 group-hover:text-error transition-colors">policy</span>
+            </div>
+            <h4 class="text-base font-headline font-bold text-white mb-2">Full Due Diligence Audit</h4>
+            <p class="text-sm text-on-surface-variant leading-relaxed mb-5">Complete compliance audit across 5 startup documents with 10 complex planted regulatory issues.</p>
+            <div class="flex items-center gap-3 text-[10px] font-label text-error font-semibold uppercase tracking-wider">
+              <span>5 docs</span><span class="w-1 h-1 rounded-full bg-outline-variant"></span><span>10 issues</span>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- ── EPISODE REPLAY ─────────────────────────────────────── -->
+      <section class="space-y-4">
+        <div>
+          <h2 class="text-xl font-headline font-bold text-white">Latest Episode Replay</h2>
+          <p class="text-sm text-on-surface-variant">Live step-by-step breakdown of the most recent agent run</p>
+        </div>
+        <div class="bg-surface-container p-6 lg:p-8 rounded-2xl border border-outline-variant/10">
+          <div id="replay-section">
+            <!-- Loading state -->
+            <div class="flex flex-col items-center gap-3 py-12 text-on-surface-variant">
+              <div class="w-8 h-8 border-2 border-primary/30 border-t-primary rounded-full animate-spin"></div>
+              <span class="text-sm">Loading episode replay…</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+    </main>
+  </div>
+
+  <!-- ═══════════════════════ FOOTER ═══════════════════════ -->
+  <footer class="w-full py-6 px-6 flex flex-col md:flex-row justify-between items-center bg-[#111319] border-t border-outline-variant/10 lg:pl-72">
+    <p class="font-headline text-[10px] uppercase tracking-widest text-on-surface/30 mb-3 md:mb-0">
+      Built for Meta × HuggingFace OpenEnv Hackathon 2026
+    </p>
+    <div class="flex gap-6">
+      <a class="font-headline text-[10px] uppercase tracking-widest text-on-surface/30 hover:text-primary transition-colors" href="https://huggingface.co/spaces/sarthakdhatrak/regcompliance-env" target="_blank">Space</a>
+      <a class="font-headline text-[10px] uppercase tracking-widest text-on-surface/30 hover:text-primary transition-colors" href="https://sarthakdhatrak-regcompliance-env.hf.space/docs" target="_blank">API Docs</a>
+      <a class="font-headline text-[10px] uppercase tracking-widest text-on-surface/30 hover:text-primary transition-colors" href="https://sarthakdhatrak-regcompliance-env.hf.space/leaderboard" target="_blank">Leaderboard JSON</a>
+    </div>
+  </footer>
+
+  <!-- Decorative radial glows -->
+  <div class="fixed top-0 left-0 w-full h-full pointer-events-none overflow-hidden -z-10" aria-hidden="true">
+    <div class="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] bg-primary/5 rounded-full blur-[120px]"></div>
+    <div class="absolute bottom-[-10%] right-[-10%] w-[30%] h-[30%] bg-secondary/5 rounded-full blur-[100px]"></div>
+  </div>
+
+  <!-- ═══════════════════════ JAVASCRIPT ═══════════════════════ -->
+  <script>
+    'use strict';
+
+    // ── Config ───────────────────────────────────────────────────
+    const API_BASE = 'https://sarthakdhatrak-regcompliance-env.hf.space';
+    const REFRESH_SEC = 30;
+
+    // ── State ────────────────────────────────────────────────────
+    let countdown = REFRESH_SEC;
+    let countdownTimer = null;
+    let isRefreshing = false;
+
+    // ── Utilities ────────────────────────────────────────────────
+    function pct(score) {
+      if (score == null || isNaN(score)) return '0.0';
+      return (score * 100).toFixed(1);
+    }
+
+    function timeAgo(iso) {
+      if (!iso) return '—';
+      try {
+        const diff = Math.floor((Date.now() - new Date(iso)) / 1000);
+        if (diff < 5)   return 'just now';
+        if (diff < 60)  return `${diff}s ago`;
+        if (diff < 3600) return `${Math.floor(diff / 60)}m ago`;
+        if (diff < 86400) return `${Math.floor(diff / 3600)}h ago`;
+        return `${Math.floor(diff / 86400)}d ago`;
+      } catch { return '—'; }
+    }
+
+    function rankStyle(rank) {
+      if (rank === 1) return { bg: 'bg-yellow-500/20', text: 'text-yellow-400', border: 'border-yellow-500/30', bar: 'bg-yellow-500', icon: '🥇' };
+      if (rank === 2) return { bg: 'bg-slate-400/20',  text: 'text-slate-300',  border: 'border-slate-400/30',  bar: 'bg-slate-400',  icon: '🥈' };
+      if (rank === 3) return { bg: 'bg-amber-700/20',  text: 'text-amber-600',  border: 'border-amber-700/30',  bar: 'bg-amber-600',  icon: '🥉' };
+      return { bg: 'bg-surface-container-highest', text: 'text-on-surface-variant', border: 'border-outline-variant/20', bar: 'bg-primary', icon: String(rank) };
+    }
+
+    function sanitize(str) {
+      if (!str) return '';
+      const d = document.createElement('div');
+      d.textContent = str;
+      return d.innerHTML;
+    }
+
+    // ── Render: Stats ────────────────────────────────────────────
+    function renderStats(lb) {
+      const runs  = lb.total_runs != null ? Number(lb.total_runs).toLocaleString() : '0';
+      const score = lb.best_score != null ? pct(lb.best_score) + '%' : '0.0%';
+      document.getElementById('stat-runs').textContent  = runs;
+      document.getElementById('stat-score').textContent = score;
+    }
+
+    // ── Render: Leaderboard ──────────────────────────────────────
+    function renderLeaderboard(lb) {
+      const tbody = document.getElementById('lb-body');
+      const list  = lb.leaderboard || [];
+
+      if (list.length === 0) {
+        tbody.innerHTML = `
+          <tr>
+            <td colspan="7" class="px-6 py-16 text-center text-on-surface-variant">
+              <span class="material-symbols-outlined text-5xl block mb-3 opacity-20">leaderboard</span>
+              <p class="font-headline text-sm">No runs yet</p>
+              <p class="text-xs mt-1 opacity-60">Submit your agent to appear here</p>
+            </td>
+          </tr>`;
+        return;
+      }
+
+      tbody.innerHTML = list.map(entry => {
+        const s   = rankStyle(entry.rank);
+        const sc  = pct(entry.score);
+        return `
+          <tr class="hover:bg-surface-container-high/50 transition-colors">
+            <td class="px-6 py-4">
+              <span class="inline-flex items-center justify-center w-8 h-8 rounded-full border ${s.bg} ${s.text} ${s.border} font-bold text-xs">${s.icon}</span>
+            </td>
+            <td class="px-6 py-4">
+              <span class="font-headline font-semibold text-primary text-sm">${sanitize(entry.task_id) || '—'}</span>
+            </td>
+            <td class="px-6 py-4 min-w-[140px]">
+              <div class="w-full bg-surface-container-lowest h-1.5 rounded-full overflow-hidden mb-1">
+                <div class="score-bar ${s.bar} h-full rounded-full" style="width:${sc}%"></div>
+              </div>
+              <span class="text-[10px] ${s.text}">${sc}%</span>
+            </td>
+            <td class="px-6 py-4">
+              <span class="text-xs text-white">${entry.issues_found ?? 0} found</span>
+            </td>
+            <td class="px-6 py-4">
+              <span class="text-[10px] ${entry.false_positives > 0 ? 'text-error' : 'text-green-400'}">${entry.false_positives ?? 0}</span>
+            </td>
+            <td class="px-6 py-4">
+              <span class="text-xs text-on-surface-variant font-mono">${sanitize(entry.model_hint) || 'anonymous'}</span>
+            </td>
+            <td class="px-6 py-4">
+              <span class="text-[10px] text-on-surface-variant">${timeAgo(entry.timestamp)}</span>
+            </td>
+          </tr>`;
+      }).join('');
+    }
+
+    // ── Render: Episode Replay ───────────────────────────────────
+    function renderReplay(data) {
+      const container = document.getElementById('replay-section');
+
+      if (!data.task_id || data.total_steps === 0) {
+        container.innerHTML = `
+          <div class="flex flex-col items-center gap-3 py-16 text-on-surface-variant">
+            <span class="material-symbols-outlined text-5xl opacity-20">replay</span>
+            <p class="font-headline text-sm">No episode data yet</p>
+            <p class="text-xs opacity-60">Run an agent against a task to see the replay here</p>
+          </div>`;
+        return;
+      }
+
+      const scoreInt = Math.round((data.final_score || 0) * 100);
+      const scoreColor = scoreInt >= 70 ? 'text-green-400' : scoreInt >= 40 ? 'text-tertiary' : 'text-error';
+      const steps = data.episode || [];
+
+      container.innerHTML = `
+        <div class="flex flex-col md:flex-row md:items-start justify-between gap-6 mb-8">
+          <div>
+            <p class="text-[10px] font-label uppercase tracking-[0.2em] text-primary mb-2">Latest Audit Replay</p>
+            <h2 class="text-2xl font-headline font-bold text-white">Task: ${sanitize(data.task_id)}</h2>
+            <p class="text-sm text-on-surface-variant mt-2 max-w-xl leading-relaxed">${sanitize(data.summary)}</p>
+            <div class="flex items-center gap-4 mt-4">
+              <span class="text-[10px] font-label text-on-surface-variant uppercase tracking-widest">${steps.length} step${steps.length !== 1 ? 's' : ''}</span>
+            </div>
+          </div>
+          <div class="bg-surface-container-high p-6 rounded-2xl text-center min-w-[160px] flex-shrink-0">
+            <p class="text-[10px] font-label uppercase tracking-widest text-on-surface-variant mb-2">Final Score</p>
+            <div>
+              <span class="text-5xl font-headline font-extrabold ${scoreColor}">${scoreInt}</span>
+              <span class="text-xl text-on-surface-variant/40">/100</span>
+            </div>
+          </div>
+        </div>
+
+        <h3 class="text-[10px] font-label uppercase tracking-widest text-on-surface-variant mb-4">Step-by-Step Execution</h3>
+        <div class="space-y-3">
+          ${steps.map(step => renderStep(step)).join('')}
+        </div>`;
+    }
+
+    function renderStep(step) {
+      const issues  = step.action_taken || [];
+      const reward  = step.reward_received || 0;
+      const isGood  = reward > 0;
+      const rewardPct = (reward * 100).toFixed(1);
+      const rewardClass = reward >= 0.5 ? 'bg-green-500/10 text-green-400 border-green-500/20'
+                        : reward > 0    ? 'bg-yellow-500/10 text-yellow-400 border-yellow-500/20'
+                        :                 'bg-error/10 text-error border-error/20';
+      const stepNum = String(step.step_number || 0).padStart(2, '0');
+
+      const issueBadges = issues.map(i => `
+        <span class="px-2 py-0.5 rounded-md bg-primary/15 text-primary text-[10px] font-bold font-mono border border-primary/20">${sanitize(i.issue_id)}</span>
+        ${i.severity ? `<span class="px-2 py-0.5 rounded-md bg-surface-container-highest text-on-surface-variant text-[10px] border border-outline-variant/20">${sanitize(i.severity)}</span>` : ''}
+        ${i.confidence != null ? `<span class="text-[10px] text-on-surface-variant/60">conf: ${(i.confidence * 100).toFixed(0)}%</span>` : ''}
+      `).join('');
+
+      return `
+        <div class="bg-surface-container-low p-5 rounded-xl flex gap-4 border border-outline-variant/5 hover:border-outline-variant/20 transition-colors">
+          <div class="flex-shrink-0 w-11 h-11 rounded-xl bg-surface-container-highest flex items-center justify-center font-headline font-bold text-primary border border-outline-variant/10 text-sm">
+            ${stepNum}
+          </div>
+          <div class="flex-1 min-w-0 space-y-2.5">
+            <div class="flex flex-wrap items-center gap-1.5">
+              ${issueBadges || '<span class="text-[10px] text-on-surface-variant/50 italic">No issues submitted</span>'}
+              <span class="px-2 py-0.5 rounded-md border ${rewardClass} text-[10px] font-bold">
+                REWARD: ${rewardPct}%
+              </span>
+              <span class="text-[10px] text-on-surface-variant/50">FP: ${step.false_positives ?? 0}</span>
+            </div>
+            <p class="text-sm text-on-surface-variant leading-relaxed">${sanitize(step.feedback) || '—'}</p>
+            <p class="text-[10px] text-on-surface-variant/40">${timeAgo(step.timestamp)}</p>
+          </div>
+        </div>`;
+    }
+
+    // ── Countdown ────────────────────────────────────────────────
+    function updateCountdownText() {
+      const el = document.getElementById('countdown-text');
+      if (el) el.textContent = isRefreshing ? 'REFRESHING…' : `REFRESH IN ${countdown}S`;
+    }
+
+    function startCountdown() {
+      if (countdownTimer) clearInterval(countdownTimer);
+      countdown = REFRESH_SEC;
+      countdownTimer = setInterval(async () => {
+        countdown--;
+        updateCountdownText();
+        if (countdown <= 0) {
+          countdown = REFRESH_SEC;
+          await doRefresh();
+        }
+      }, 1000);
+    }
+
+    // ── Fetch helpers ────────────────────────────────────────────
+    async function apiFetch(path) {
+      const res = await fetch(`${API_BASE}${path}`, {
+        mode: 'cors',
+        headers: { 'Accept': 'application/json' }
+      });
+      if (!res.ok) throw new Error(`HTTP ${res.status} on ${path}`);
+      return res.json();
+    }
+
+    // ── Main refresh ─────────────────────────────────────────────
+    async function doRefresh() {
+      if (isRefreshing) return;
+      isRefreshing = true;
+      updateCountdownText();
+
+      const btn = document.getElementById('refresh-btn');
+      if (btn) btn.disabled = true;
+
+      const [lbResult, replayResult] = await Promise.allSettled([
+        apiFetch('/leaderboard'),
+        apiFetch('/replay')
+      ]);
+
+      // Leaderboard
+      if (lbResult.status === 'fulfilled') {
+        renderStats(lbResult.value);
+        renderLeaderboard(lbResult.value);
+      } else {
+        console.warn('Leaderboard fetch failed:', lbResult.reason);
+        document.getElementById('lb-body').innerHTML = `
+          <tr><td colspan="7" class="px-6 py-10 text-center text-error text-sm">
+            <span class="material-symbols-outlined block mb-2">wifi_off</span>
+            Failed to load leaderboard — check network or API status.
+          </td></tr>`;
+      }
+
+      // Replay
+      if (replayResult.status === 'fulfilled') {
+        renderReplay(replayResult.value);
+      } else {
+        console.warn('Replay fetch failed:', replayResult.reason);
+        document.getElementById('replay-section').innerHTML = `
+          <div class="flex flex-col items-center gap-2 py-10 text-on-surface-variant">
+            <span class="material-symbols-outlined text-3xl text-error opacity-60">warning</span>
+            <p class="text-sm text-error/80">Failed to load replay data</p>
+            <p class="text-xs opacity-50">API may be cold-starting. Retry in a moment.</p>
+          </div>`;
+      }
+
+      isRefreshing = false;
+      if (btn) btn.disabled = false;
+      updateCountdownText();
+    }
+
+    // ── Init ─────────────────────────────────────────────────────
+    document.addEventListener('DOMContentLoaded', () => {
+      doRefresh();
+      startCountdown();
+
+      document.getElementById('refresh-btn').addEventListener('click', () => {
+        countdown = REFRESH_SEC;
+        doRefresh();
+      });
+    });
+  </script>
+
+</body>
+</html>
