@@ -191,20 +191,32 @@ def health() -> HealthResponse:
 
 
 @app.post("/reset", response_model=Observation, tags=["env"])
-def reset(body: ResetRequest) -> Observation:
+async def reset(request: Request) -> Observation:
     """Reset the environment and load a task.
 
-    - **task_id**: one of ``task1``, ``task2``, ``task3``.
-    - **use_generator** *(default True)*: when ``True``, generates fresh synthetic
-      documents each call so agents cannot memorise the text. When ``False``,
-      loads the original static files from ``data/``.
-    - **seed** *(optional)*: integer seed for reproducible document generation.
+    Accepts an optional JSON body. All fields have defaults so the endpoint
+    works even with an empty body ``{}``, no body, or missing Content-Type.
+
+    - **task_id** *(default "task1")*: one of ``task1``, ``task2``, ``task3``.
+    - **use_generator** *(default True)*: generate fresh synthetic documents.
+    - **seed** *(optional)*: integer seed for reproducible generation.
 
     Returns an ``Observation`` containing task documents, goal, and rules.
     """
     global episode_history
 
-    task_id = body.task_id.strip().lower()
+    # Safely parse body — fall back to empty dict on any failure
+    try:
+        body = await request.json()
+        if not isinstance(body, dict):
+            body = {}
+    except Exception:
+        body = {}
+
+    task_id      = str(body.get("task_id", "task1")).strip().lower()
+    use_generator = bool(body.get("use_generator", True))
+    seed_raw      = body.get("seed", None)
+    seed: Optional[int] = int(seed_raw) if seed_raw is not None else None
 
     # Always load ground truth from data/ (source of truth for grading)
     try:
@@ -213,8 +225,8 @@ def reset(body: ResetRequest) -> Observation:
         raise HTTPException(status_code=400, detail=str(exc)) from exc
 
     # Optionally generate fresh documents
-    if body.use_generator:
-        gen = DocumentGenerator(seed=body.seed)
+    if use_generator:
+        gen = DocumentGenerator(seed=seed)
         _gen_methods = {
             "task1": gen.generate_task1_docs,
             "task2": gen.generate_task2_docs,
@@ -224,12 +236,12 @@ def reset(body: ResetRequest) -> Observation:
     else:
         documents, _ = _loader.load_task(task_id)
 
-    _state["task_id"] = task_id
-    _state["documents"] = documents
-    _state["ground_truth"] = ground_truth
-    _state["step_number"] = 0
-    _state["use_generator"] = body.use_generator
-    _state["seed"] = body.seed
+    _state["task_id"]       = task_id
+    _state["documents"]     = documents
+    _state["ground_truth"]  = ground_truth
+    _state["step_number"]   = 0
+    _state["use_generator"] = use_generator
+    _state["seed"]          = seed
 
     # Clear episode history for the new episode
     episode_history = []
