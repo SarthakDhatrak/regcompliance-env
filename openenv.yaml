@@ -1,18 +1,37 @@
 name: regcompliance-env
-version: 1.0.0
-description: Environment for training AI agents on Indian startup legal compliance classification. Agents read synthetic documents and identify compliance violations.
-domain: legal-compliance
+version: "1.0.0"
+description: >
+  OpenEnv environment for training AI agents on Indian startup
+  legal compliance classification. Agents read synthetic legal
+  documents and identify compliance violations.
+tags:
+  - openenv
+  - legal
+  - compliance
+  - india
+entrypoint:
+  type: http
+  url: https://sarthakdhatrak-regcompliance-env.hf.space
+endpoints:
+  reset:
+    method: POST
+    path: /reset
+  step:
+    method: POST
+    path: /step
+  state:
+    method: GET
+    path: /state
 tasks:
   - id: task1
     name: Single clause detection
     difficulty: easy
+    description: Find missing data retention clause in a privacy policy
   - id: task2
     name: Cross-document conflict detection
     difficulty: medium
+    description: Identify jurisdiction conflicts between two contracts
   - id: task3
     name: Full due diligence audit
     difficulty: hard
-api:
-  reset: POST /reset
-  step: POST /step
-  state: GET /state
+    description: Complete compliance audit across 5 startup documents

@@ -122,7 +122,7 @@ def _current_observation() -> Observation:
 # ---------------------------------------------------------------------------
 
 class ResetRequest(BaseModel):
-    task_id: str
+    task_id: str = "task1"
     use_generator: bool = True
     seed: Optional[int] = None
 
