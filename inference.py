@@ -11,7 +11,8 @@ from openai import OpenAI
 # Config & Constants
 # ---------------------------------------------------------------------------
 
-API_BASE = "http://localhost:7860"
+ENV_BASE_URL = os.getenv("ENV_BASE_URL", "http://localhost:7860")
+API_BASE = ENV_BASE_URL
 SLEEP_TIME = 5  # seconds between tasks
 
 TASKS = [

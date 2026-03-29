@@ -77,6 +77,34 @@ Seed: 42
 
 ## Setup
 
+## Quick Test (No Setup Required)
+
+The environment is live on HuggingFace Spaces:
+
+Health check:
+```
+curl https://sarthakdhatrak-regcompliance-env.hf.space/health
+```
+
+Live dashboard:
+```
+https://sarthakdhatrak-regcompliance-env.hf.space/
+```
+
+API docs:
+```
+https://sarthakdhatrak-regcompliance-env.hf.space/docs
+```
+
+Run inference against live environment:
+```
+ENV_BASE_URL=https://sarthakdhatrak-regcompliance-env.hf.space
+API_BASE_URL=https://router.huggingface.co/v1
+MODEL_NAME=meta-llama/Llama-3.3-70B-Instruct
+HF_TOKEN=your_token_here
+python inference.py
+```
+
 ### Docker
 
 docker build -t regcompliance-env .
