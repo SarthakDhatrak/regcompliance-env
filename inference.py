@@ -11,9 +11,12 @@ from openai import OpenAI
 # Config & Constants
 # ---------------------------------------------------------------------------
 
-ENV_BASE_URL = os.getenv("ENV_BASE_URL", "http://localhost:7860")
-API_BASE = ENV_BASE_URL
-SLEEP_TIME = 5  # seconds between tasks
+API_BASE_URL = os.getenv("API_BASE_URL", "https://router.huggingface.co/v1")
+HF_TOKEN     = os.getenv("HF_TOKEN") or os.getenv("API_KEY")
+MODEL_NAME   = os.getenv("MODEL_NAME", "meta-llama/Llama-3.3-70B-Instruct")
+ENV_BASE_URL = os.getenv("ENV_BASE_URL", "https://sarthakdhatrak-regcompliance-env.hf.space")
+API_BASE     = ENV_BASE_URL
+SLEEP_TIME   = 5  # seconds between tasks
 
 TASKS = [
     {"id": "task1", "name": "Task 1 (easy)", "total": 1},
@@ -87,10 +90,14 @@ def parse_llm_json(text: str) -> List[Dict[str, Any]]:
 # ---------------------------------------------------------------------------
 
 def main():
-    # 1. Setup
-    api_url = get_env("API_BASE_URL")
-    model_name = get_env("MODEL_NAME")
-    api_key = get_env("HF_TOKEN")
+    # 1. Setup — use module-level defaults; token is optional for open models
+    api_url    = API_BASE_URL
+    model_name = MODEL_NAME
+    api_key    = HF_TOKEN or "no-token"
+
+    print(f"ENV  base : {ENV_BASE_URL}")
+    print(f"LLM  base : {api_url}")
+    print(f"Model     : {model_name}")
 
     client = OpenAI(base_url=api_url, api_key=api_key)
     
@@ -169,3 +176,4 @@ def main():
 
 if __name__ == "__main__":
     main()
+    sys.exit(0)
