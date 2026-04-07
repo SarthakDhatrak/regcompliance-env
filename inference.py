@@ -43,7 +43,7 @@ def get_env(key: str) -> str:
     """Read environment variable or exit if missing."""
     val = os.environ.get(key)
     if not val:
-        print(f"Error: Environment variable {key} is required.")
+        print(f"Error: Environment variable {key} is required.", flush=True)
         sys.exit(1)
     return val
 
@@ -58,7 +58,7 @@ def api_post(endpoint: str, data: dict) -> dict:
         with urllib.request.urlopen(req) as response:
             return json.loads(response.read().decode("utf-8"))
     except Exception as e:
-        print(f"API Error ({url}): {e}")
+        print(f"API Error ({url}): {e}", flush=True)
         return {}
 
 def format_docs(docs: Dict[str, str]) -> str:
@@ -95,28 +95,32 @@ def main():
     model_name = MODEL_NAME
     api_key    = HF_TOKEN or "no-token"
 
-    print(f"ENV  base : {ENV_BASE_URL}")
-    print(f"LLM  base : {api_url}")
-    print(f"Model     : {model_name}")
+    print(f"ENV  base : {ENV_BASE_URL}", flush=True)
+    print(f"LLM  base : {api_url}", flush=True)
+    print(f"Model     : {model_name}", flush=True)
 
     client = OpenAI(base_url=api_url, api_key=api_key)
     
     task_results = []
 
-    print(f"Starting inference with model: {model_name}")
-    print("-" * 40)
+    print(f"Starting inference with model: {model_name}", flush=True)
+    print("-" * 40, flush=True)
 
     for task_meta in TASKS:
         task_id = task_meta["id"]
         task_name = task_meta["name"]
         
-        print(f"Running {task_name}...")
+        print(f"Running {task_name}...", flush=True)
+        print(f"[START] task={task_id}", flush=True)
+        
+        score = 0.0
 
         # 2. Reset Environment
         obs = api_post("/reset", {"task_id": task_id, "use_generator": True, "seed": 42})
         if not obs:
-            print(f"Failed to reset task {task_id}. Skipping.")
+            print(f"Failed to reset task {task_id}. Skipping.", flush=True)
             task_results.append({"name": task_name, "score": 0.0, "found": 0, "total": task_meta["total"], "fp": 0})
+            print(f"[END] task={task_id} score={score} steps=1", flush=True)
             continue
 
         # 3. Build Prompt
@@ -135,7 +139,7 @@ def main():
             )
             llm_text = response.choices[0].message.content
         except Exception as e:
-            print(f"LLM Error: {e}")
+            print(f"LLM Error: {e}", flush=True)
             llm_text = "[]"
 
         # 5. Parse Response
@@ -147,8 +151,10 @@ def main():
         
         if step_result:
             reward = step_result["reward"]
-            print(f"  Score: {reward['score']:.2f}")
-            print(f"  Feedback: {reward['feedback']}")
+            score = reward["score"]
+            print(f"  Score: {score:.2f}", flush=True)
+            print(f"[STEP] step=1 reward={score}", flush=True)
+            print(f"  Feedback: {reward['feedback']}", flush=True)
             
             task_results.append({
                 "name": task_name,
@@ -160,19 +166,21 @@ def main():
         else:
             task_results.append({"name": task_name, "score": 0.0, "found": 0, "total": task_meta["total"], "fp": 0})
 
+        print(f"[END] task={task_id} score={score} steps=1", flush=True)
+
         # 7. Cooldown
         time.sleep(SLEEP_TIME)
 
     # 8. Summary Table
-    print("\n" + "="*60)
+    print("\n" + "="*60, flush=True)
     scores = []
     for res in task_results:
-        print(f"{res['name']}: score {res['score']:.2f} | found {res['found']}/{res['total']} issues | false positives: {res['fp']}")
+        print(f"{res['name']}: score {res['score']:.2f} | found {res['found']}/{res['total']} issues | false positives: {res['fp']}", flush=True)
         scores.append(res["score"])
     
     avg_score = sum(scores) / len(scores) if scores else 0.0
-    print(f"Average score: {avg_score:.2f}")
-    print("="*60)
+    print(f"Average score: {avg_score:.2f}", flush=True)
+    print("="*60, flush=True)
 
 if __name__ == "__main__":
     main()
