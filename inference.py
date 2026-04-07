@@ -12,8 +12,8 @@ from openai import OpenAI
 # ---------------------------------------------------------------------------
 
 API_BASE_URL = os.getenv("API_BASE_URL", "https://router.huggingface.co/v1")
-HF_TOKEN     = os.getenv("HF_TOKEN") or os.getenv("API_KEY")
 MODEL_NAME   = os.getenv("MODEL_NAME", "meta-llama/Llama-3.3-70B-Instruct")
+HF_TOKEN     = os.getenv("HF_TOKEN")
 ENV_BASE_URL = os.getenv("ENV_BASE_URL", "https://sarthakdhatrak-regcompliance-env.hf.space")
 API_BASE     = ENV_BASE_URL
 SLEEP_TIME   = 5  # seconds between tasks
@@ -93,7 +93,7 @@ def main():
     # 1. Setup — use module-level defaults; token is optional for open models
     api_url    = API_BASE_URL
     model_name = MODEL_NAME
-    api_key    = HF_TOKEN or "no-token"
+    api_key    = HF_TOKEN or "dummy-token"
 
     print(f"ENV  base : {ENV_BASE_URL}", flush=True)
     print(f"LLM  base : {api_url}", flush=True)
