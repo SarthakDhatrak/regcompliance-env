@@ -1,28 +1,31 @@
 [build-system]
-requires = ["setuptools>=68", "wheel"]
-build-backend = "setuptools.backends.legacy:build"
+requires = ["setuptools>=45", "wheel"]
+build-backend = "setuptools.build_meta"
 
 [project]
 name = "regcompliance-env"
 version = "1.0.0"
 description = "OpenEnv environment for Indian startup legal compliance"
-readme = "README.md"
-requires-python = ">=3.11"
-license = {text = "MIT"}
-keywords = ["openenv", "legal", "compliance", "india"]
+requires-python = ">=3.10"
 dependencies = [
-    "fastapi",
-    "uvicorn[standard]",
-    "pydantic",
-    "openai",
-    "python-dotenv",
     "openenv-core>=0.2.0",
+    "openenv>=0.1.13",
+    "fastapi>=0.110.0",
+    "uvicorn[standard]>=0.27.0",
+    "pydantic>=2.5.0",
+    "httpx>=0.25.2",
+    "python-dotenv>=1.0.0",
+    "requests>=2.32.5",
+    "openai>=1.0.0",
 ]
 
 [project.scripts]
-serve = "server.app:main"
 server = "server.app:main"
 
-[project.urls]
-Homepage = "https://huggingface.co/spaces/sarthakdhatrak/regcompliance-env"
-Repository = "https://github.com/SarthakDhatrak/regcompliance-env"
+[tool.setuptools]
+include-package-data = true
+packages = ["env", "server"]
+package-dir = {"env" = "env", "server" = "server"}
+
+[tool.setuptools.package-data]
+regcompliance_env = ["**/*.yaml", "**/*.yml", "**/*.md", "data/**/*"]
