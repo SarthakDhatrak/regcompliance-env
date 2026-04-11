@@ -3,7 +3,7 @@ from __future__ import annotations
 from dataclasses import dataclass, field
 from typing import Dict, List, Optional, Set, Tuple
 
-from env.models import Action, Reward
+from regcompliance_env.models import Action, Reward
 
 # Penalty subtracted from score for each false positive.
 _FP_PENALTY: float = 0.05

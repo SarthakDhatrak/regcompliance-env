@@ -11,10 +11,10 @@ from fastapi.responses import FileResponse
 from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel
 
-from env.document_generator import DocumentGenerator
-from env.grader import Grader
-from env.models import Action, Observation, Reward
-from env.tasks import TaskLoader
+from regcompliance_env.document_generator import DocumentGenerator
+from regcompliance_env.grader import Grader
+from regcompliance_env.models import Action, Observation, Reward
+from regcompliance_env.tasks import TaskLoader
 
 # ---------------------------------------------------------------------------
 # App setup
@@ -388,4 +388,4 @@ if _UI_DIR.exists():
 # ---------------------------------------------------------------------------
 
 if __name__ == "__main__":
-    uvicorn.run("env.main:app", host="0.0.0.0", port=7860, reload=True)
+    uvicorn.run("regcompliance_env.main:app", host="0.0.0.0", port=7860, reload=True)
