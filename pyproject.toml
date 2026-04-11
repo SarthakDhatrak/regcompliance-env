@@ -8,8 +8,7 @@ version = "1.0.0"
 description = "OpenEnv environment for Indian startup legal compliance"
 requires-python = ">=3.10"
 dependencies = [
-    "openenv-core>=0.2.0",
-    "openenv>=0.1.13",
+    "openenv-core[core]>=0.2.2",
     "fastapi>=0.110.0",
     "uvicorn[standard]>=0.27.0",
     "pydantic>=2.5.0",
@@ -19,13 +18,19 @@ dependencies = [
     "openai>=1.0.0",
 ]
 
+[project.optional-dependencies]
+dev = [
+    "pytest>=8.0.0",
+    "pytest-cov>=4.0.0",
+]
+
 [project.scripts]
-server = "server.app:main"
+server = "regcompliance_env.server.app:main"
 
 [tool.setuptools]
 include-package-data = true
-packages = ["env", "server"]
-package-dir = {"env" = "env", "server" = "server"}
+packages = ["regcompliance_env", "regcompliance_env.server"]
+package-dir = { "regcompliance_env" = ".", "regcompliance_env.server" = "server" }
 
 [tool.setuptools.package-data]
 regcompliance_env = ["**/*.yaml", "**/*.yml", "**/*.md", "data/**/*"]
